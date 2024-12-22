@@ -73,7 +73,7 @@
   <script>
     const surahList = document.getElementById('surahList');
 
-   const surahs = [
+      const surahs = [
   { name: "الفاتحة", ayahs: 7, type: "مكية" },
   { name: "البقرة", ayahs: 286, type: "مدنية" },
   { name: "آل عمران", ayahs: 200, type: "مدنية" },
@@ -189,7 +189,6 @@
   { name: "الناس", ayahs: 6, type: "مكية" }
 ];
 
-
     const startDate = new Date(); // تاريخ البداية
 
     // إنشاء قائمة السور ديناميكيًا
@@ -207,13 +206,24 @@
 
       surahItem.innerHTML = `
         <label>
-          <input type="checkbox" />
+          <input type="checkbox" id="checkbox-${index}" />
           <span>${index + 1}. ${surah.name} (${surah.type}) - ${surah.ayahs} آية</span>
         </label>
         <span class="date">اليوم: ${formattedDate}</span>
       `;
 
       surahList.appendChild(surahItem);
+
+      // استرجاع الحالة المخزنة في localStorage
+      const storedState = localStorage.getItem(`checkbox-${index}`);
+      if (storedState === 'true') {
+        surahItem.querySelector(`#checkbox-${index}`).checked = true;
+      }
+
+      // حفظ الحالة في localStorage عند تغيير حالة التشيك بوكس
+      surahItem.querySelector(`#checkbox-${index}`).addEventListener('change', function() {
+        localStorage.setItem(`checkbox-${index}`, this.checked);
+      });
     });
   </script>
 </body>
