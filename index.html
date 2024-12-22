@@ -101,6 +101,11 @@
       background: #3498db;
       color: white;
     }
+
+    .date {
+      font-size: 14px;
+      color: #bdc3c7;
+    }
   </style>
 </head>
 <body>
@@ -108,59 +113,7 @@
     <h1>خطة حفظ القرآن خلال 400 يوم</h1>
 
     <div class="surah-list" id="surahList">
-      <div class="surah-item">
-        <input type="checkbox" id="surah1" data-surah="الفاتحة" data-ayah="7">
-        <label for="surah1">الفاتحة - 7 آيات (مكية)</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah2" data-surah="البقرة" data-ayah="20">
-        <label for="surah2">البقرة - من 1 إلى 20</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah3" data-surah="البقرة" data-ayah="20">
-        <label for="surah3">البقرة - من 21 إلى 40</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah4" data-surah="البقرة" data-ayah="40">
-        <label for="surah4">البقرة - من 41 إلى 80</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah5" data-surah="البقرة" data-ayah="40">
-        <label for="surah5">البقرة - من 81 إلى 120</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah6" data-surah="البقرة" data-ayah="40">
-        <label for="surah6">البقرة - من 121 إلى 160</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah7" data-surah="البقرة" data-ayah="40">
-        <label for="surah7">البقرة - من 161 إلى 200</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah8" data-surah="البقرة" data-ayah="86">
-        <label for="surah8">البقرة - من 201 إلى 286</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah9" data-surah="آل عمران" data-ayah="40">
-        <label for="surah9">آل عمران - من 1 إلى 40</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah10" data-surah="آل عمران" data-ayah="40">
-        <label for="surah10">آل عمران - من 41 إلى 80</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah11" data-surah="آل عمران" data-ayah="40">
-        <label for="surah11">آل عمران - من 81 إلى 120</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah12" data-surah="آل عمران" data-ayah="40">
-        <label for="surah12">آل عمران - من 121 إلى 160</label>
-      </div>
-      <div class="surah-item">
-        <input type="checkbox" id="surah13" data-surah="آل عمران" data-ayah="20">
-        <label for="surah13">آل عمران - من 161 إلى 200</label>
-      </div>
-      <!-- Add all other Surahs similarly -->
+      <!-- Generated Surahs List -->
     </div>
 
     <button id="popupBtn">اضغط للتشجيع</button>
@@ -179,39 +132,101 @@
     const popupBtn = document.getElementById('popupBtn');
     const popup = document.getElementById('popup');
     const closePopup = document.getElementById('closePopup');
-    const surahList = document.querySelectorAll('.surah-item input');
+    const surahList = document.getElementById('surahList');
 
-    // Load saved state from localStorage
-    window.addEventListener('load', () => {
-      surahList.forEach((checkbox) => {
-        const saved = localStorage.getItem(checkbox.id);
-        if (saved === 'true') {
-          checkbox.checked = true;
-        }
-      });
+    const surahs = [
+      { name: "الفاتحة", ayahs: 7, type: "مكية" },
+      { name: "البقرة", ayahs: 286, type: "مدنية" },
+      { name: "آل عمران", ayahs: 200, type: "مدنية" },
+      { name: "النساء", ayahs: 176, type: "مدنية" },
+      { name: "المائدة", ayahs: 120, type: "مدنية" },
+      { name: "الأنعام", ayahs: 165, type: "مكية" },
+      { name: "الأعراف", ayahs: 206, type: "مكية" },
+      { name: "الأنفال", ayahs: 75, type: "مدنية" },
+      { name: "التوبة", ayahs: 129, type: "مدنية" },
+      { name: "يونس", ayahs: 109, type: "مكية" },
+      { name: "هود", ayahs: 123, type: "مكية" },
+      { name: "يوسف", ayahs: 111, type: "مكية" },
+      { name: "الرعد", ayahs: 43, type: "مدنية" },
+      { name: "إبراهيم", ayahs: 52, type: "مكية" },
+      { name: "الحجر", ayahs: 99, type: "مكية" },
+      { name: "النحل", ayahs: 128, type: "مكية" },
+      { name: "الإسراء", ayahs: 111, type: "مكية" },
+      { name: "الكهف", ayahs: 110, type: "مكية" },
+      { name: "مريم", ayahs: 98, type: "مكية" },
+      { name: "طه", ayahs: 135, type: "مكية" },
+      { name: "الأنبياء", ayahs: 112, type: "مكية" },
+      { name: "الحج", ayahs: 78, type: "مدنية" },
+      { name: "المؤمنون", ayahs: 118, type: "مكية" },
+      { name: "النور", ayahs: 64, type: "مدنية" },
+      { name: "الفرقان", ayahs: 77, type: "مكية" },
+      { name: "الشعراء", ayahs: 227, type: "مكية" },
+      { name: "النمل", ayahs: 93, type: "مكية" },
+      { name: "القصص", ayahs: 88, type: "مكية" },
+      { name: "العنكبوت", ayahs: 69, type: "مكية" },
+      { name: "الروم", ayahs: 60, type: "مكية" },
+      { name: "لقمان", ayahs: 34, type: "مكية" },
+      { name: "السجدة", ayahs: 30, type: "مكية" },
+      { name: "الأحزاب", ayahs: 73, type: "مدنية" },
+      { name: "سبأ", ayahs: 54, type: "مكية" },
+      { name: "فاطر", ayahs: 45, type: "مكية" },
+      { name: "يس", ayahs: 83, type: "مكية" },
+      { name: "الصافات", ayahs: 182, type: "مكية" },
+      { name: "ص", ayahs: 88, type: "مكية" },
+      { name: "الزمر", ayahs: 75, type: "مكية" },
+      { name: "غافر", ayahs: 85, type: "مكية" },
+      { name: "فصلت", ayahs: 54, type: "مكية" },
+      { name: "الشورى", ayahs: 53, type: "مكية" },
+      { name: "الزخرف", ayahs: 89, type: "مكية" },
+      { name: "الدخان", ayahs: 59, type: "مكية" },
+      { name: "الجاثية", ayahs: 37, type: "مكية" },
+      { name: "الأحقاف", ayahs: 35, type: "مكية" },
+      { name: "محمد", ayahs: 38, type: "مدنية" },
+        { name: "الفتح", ayahs: 29, type: "مدنية" },
+      { name: "الحجرات", ayahs: 18, type: "مدنية" },
+      { name: "ق", ayahs: 45, type: "مكية" },
+      { name: "الذاريات", ayahs: 60, type: "مكية" },
+      { name: "الطور", ayahs: 49, type: "مكية" },
+      { name: "النجم", ayahs: 62, type: "مكية" },
+      { name: "القمر", ayahs: 55, type: "مكية" },
+      { name: "الرحمن", ayahs: 78, type: "مدنية" },
+      { name: "الواقعة", ayahs: 96, type: "مكية" },
+      { name: "الحديد", ayahs: 29, type: "مدنية" },
+      // يمكنك إضافة باقي السور بنفس الشكل.
+    ];
+
+    // إنشاء قائمة السور ديناميكيًا
+    surahs.forEach((surah, index) => {
+      const surahItem = document.createElement('div');
+      surahItem.className = 'surah-item';
+
+      surahItem.innerHTML = `
+        <label>
+          <input type="checkbox" />
+          <span>${index + 1}. ${surah.name} (${surah.type}) - ${surah.ayahs} آية</span>
+        </label>
+      `;
+
+      surahList.appendChild(surahItem);
     });
 
-    // Save checkbox state to localStorage
-    surahList.forEach((checkbox) => {
-      checkbox.addEventListener('change', () => {
-        localStorage.setItem(checkbox.id, checkbox.checked);
-      });
-    });
-
+    // عرض النافذة المنبثقة
     popupBtn.addEventListener('click', () => {
       popup.style.display = 'flex';
     });
 
+    // إغلاق النافذة المنبثقة
     closePopup.addEventListener('click', () => {
       popup.style.display = 'none';
     });
 
-    // Close popup when clicking outside content
-    window.addEventListener('click', (e) => {
-      if (e.target === popup) {
+    // إغلاق النافذة عند الضغط خارجها
+    window.addEventListener('click', (event) => {
+      if (event.target === popup) {
         popup.style.display = 'none';
       }
     });
   </script>
 </body>
 </html>
+
