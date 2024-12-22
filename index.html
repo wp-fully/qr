@@ -59,10 +59,21 @@
       color: #bdc3c7;
       margin-top: 5px;
     }
+      .selected-count {
+      text-align: center;
+      margin: 20px 0;
+      padding: 10px;
+      background-color: #f1c40f;
+      color: #2c3e50;
+      border-radius: 5px;
+      font-size: 18px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
+        <div class="selected-count">تم تحديد <span  id="selectedCount"> 0 </span> من 114 سور</div>
+
     <h1>خطة حفظ القرآن خلال 400 يوم</h1>
 
     <div class="surah-list" style="
@@ -229,6 +240,11 @@
         localStorage.setItem(`checkbox-${index}`, this.checked);
       });
     });
+     function updateSelectedCount() {
+      const selectedSurahs = document.querySelectorAll('.surah-item input:checked');
+      const selectedNumber = selectedSurahs.length;
+      selectedCount.textContent = `${selectedNumber}`;
+    }
   </script>
 </body>
 </html>
