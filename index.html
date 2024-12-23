@@ -79,7 +79,15 @@
 </head>
 <body>
   <div class="container">
-    <div class="selected-count">تم تحديد <span id="selectedCount">0</span> من 114 سور</div>
+    <div class="selected-count">
+      تم تحديد 
+      <span id="selectedCount">0</span>
+      من 114 سور
+    
+||
+متبقي
+<span id="num"></span>
+    </div>
     <h1>خطة حفظ القرآن خلال 400 يوم</h1>
     <div class="surah-list" id="surahList">
       <!-- Generated Surahs List -->
@@ -89,6 +97,7 @@
   <script>
     const surahList = document.getElementById('surahList');
     const selectedCount = document.getElementById('selectedCount');
+    
 
     const surahs = [
   { name: "الفاتحة", ayahs: 7, type: "مكية", number: 1 },
@@ -240,6 +249,7 @@
 
     // تحديث العدّاد عند تحميل الصفحة
     updateSelectedCount();
+    document.getElementById('num').innerHTML = 114 - selectedCount
   </script>
 </body>
 </html>
