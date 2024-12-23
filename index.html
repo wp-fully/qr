@@ -245,11 +245,12 @@
     function updateSelectedCount() {
       const selectedSurahs = Array.from(document.querySelectorAll('.surah-item input:checked')).length;
       selectedCount.textContent = selectedSurahs;
+      document.getElementById('num').innerHTML = 114 - selectedSurahs
     }
 
     // تحديث العدّاد عند تحميل الصفحة
     updateSelectedCount();
-    document.getElementById('num').innerHTML = 114 - selectedCount
+    
   </script>
 </body>
 </html>
